@@ -1,0 +1,148 @@
+{% load static %}
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+       <div id="sidebar-menu" class="sidebar-menu">
+         {% if user.user_type == 'IT ADMIN' %}
+          <ul>
+             <li class="menu-title">
+                <span>Main Menu</span>
+             </li>
+             <li>
+                <a href="{% url 'it_admin_home' %}"><i class="fa fa-list"></i> <span>Dashboard</span></a>
+             </li>
+             <li class="submenu">
+                <a href="#"><i class="fa fa-building"></i></i> <span>Department</span> <span class="menu-arrow"></span></a>
+                <ul>
+                   <li><a href="{% url 'add_department' %}">Add Department</a></li>
+                   <li><a href="{% url 'view_department' %}">View Department</a></li>
+                   
+                   <!--
+                   <li><a href="add-student.html">Student Add</a></li>
+                   <li><a href="edit-student.html">Student Edit</a></li>
+                   -->
+                </ul>
+             </li>
+             <li class="submenu">
+                <a href="#"><i class="fa fa-user"></i> <span>Managing Director</span> <span class="menu-arrow"></span></a>
+                <ul>
+                   <li><a href="teachers.html">Add MD</a></li>
+                   <li><a href="teacher-details.html">View MD</a></li>
+                   <!--<li><a href="add-teacher.html">Teacher Add</a></li>
+                   <li><a href="edit-teacher.html">Teacher Edit</a></li>-->
+                </ul>
+             </li>
+             
+             <li class="submenu">
+                <a href="#"><i class="fa fa-user"></i> <span>HOD</span> <span class="menu-arrow"></span></a>
+                <ul>
+                   <li><a href="{% url 'add_hod' %}">Add HOD</a></li>
+                   <li><a href="{% url 'view_hod' %}">View HOD</a></li>
+                   
+                </ul>
+             </li>
+
+             <li class="submenu">
+               <a href="#"><i class="fa fa-user"></i> <span>Employee</span> <span class="menu-arrow"></span></a>
+               <ul>
+                  <li><a href="{% url 'add_employee' %}">Add Employee</a></li>
+                  <li><a href="{% url 'view_employee' %}">View Employee</a></li>
+                  
+                
+                  
+               </ul>
+            </li>
+             <li>
+               <a href="{% url 'change_password' %}"><i class="fa fa-key"></i> <span>Change Password</span></a>
+            </li>
+             <li>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+             </li>
+             
+          </ul>
+          {% elif user.user_type == 'EMPLOYEE' %}
+
+         <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+            <li>
+               <a href="{% url 'employee_home' %}"><i class="fa fa-list"></i> <span>Dashboard</span></a>
+            </li>
+
+            <li class="submenu">
+               <a href="#"><i class="fas fa-envelope"></i> <span>Grievance</span> <span class="menu-arrow"></span></a>
+               <ul>
+                  <li><a href="{% url 'grievance' %}">Create Grievance and Status</a></li>
+                  
+                  
+               </ul>
+            </li>
+
+            <li>
+               <a href="{% url 'change_password' %}"><i class="fa fa-key"></i> <span>Change Password</span></a>
+            </li>
+             <li>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+             </li>
+         </ul>
+
+          {% elif user.user_type == 'DEPARTMENT HEAD' %}
+
+          <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+            <li>
+               <a href="{% url 'hod_home' %}"><i class="fa fa-list"></i> <span>Dashboard</span></a>
+            </li>
+
+            <li class="submenu">
+               <a href="#"><i class="fa fa-user"></i> <span>HOD</span> <span class="menu-arrow"></span></a>
+               <ul>
+                  
+                  <li><a href="{% url 'view_hod' %}">View HOD</a></li>
+                  
+               </ul>
+            </li>
+
+            <li class="submenu">
+               <a href="#"><i class="fa fa-user"></i> <span>Employee</span> <span class="menu-arrow"></span></a>
+               <ul>
+                  
+                  <li><a href="{% url 'view_employee' %}">View Employee</a></li>
+                  
+                
+                  
+               </ul>
+            </li>
+
+         
+
+               <li class="submenu">
+                  <a href="#"><i class="fas fa-envelope"></i> <span>Grievance</span> <span class="menu-arrow"></span></a>
+                  <ul>
+                     <li><a href="{% url 'view_grievance' %}">View Grievance</a></li>
+                     <li><a href="{% url 'forward_grievance' %}">Forward Grievance</a></li>
+                  </ul>
+
+                  
+               </li>
+          
+               <li>
+                  <a href="{% url 'change_password' %}"><i class="fa fa-key"></i> <span>Change Password</span></a>
+               </li>
+   
+               <li>
+                  <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+               </li>
+         </ul>
+
+
+          {% else %}
+
+
+          {% endif %}
+       </div>
+    </div>
+ </div>

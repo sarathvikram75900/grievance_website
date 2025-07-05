@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+   {% extends 'base.html' %}
+
+   {% load static %}
+
+   {% block content %}
+
+
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <form>
+                  <div class="row">
+                     
+                     <div class="col-12">
+                        <div class="form-group">
+                           <label>Subject</label>
+                           <input type="text" class="form-control" value="{{grievance.subject}}" readonly>
+                        </div>
+                     </div>
+                     
+                     <div class="col-12 ">
+                        <div class="form-group">
+                          <label>Grievance Description</label>
+                          <textarea class="form-control" name="message" style="height: 500px;" readonly>{{grievance.message}}</textarea>
+                        </div>
+                      </div>
+
+         {% if grievance.pic %}
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Grievance image</label>
+
+            <a href="{{grievance.pic.url}}" data-lightbox="grievance-pic">
+              <img src="{{grievance.pic.url}}" alt="Grievance Image" class="img-fluid">
+            </a>
+
+          </div>
+        </div>
+        {% endif %}
+
+        {% if grievance.message_reply %}
+        <div class="col-12 ">
+         <div class="form-group">
+           <label>Grievance Reply - {{grievance.message_reply_time}} </label>
+           
+           <textarea class="form-control" name="message_reply" style="height: 300px;" readonly>{{grievance.message_reply}}</textarea>
+         </div>
+       </div>
+        {% endif %}
+                     
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% endblock %}
+
+   {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script>
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+   {% extends 'base.html' %}
+
+   {% load static %}
+
+   {% block content %}
+
+
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == 'info' %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{message}}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               {% endif %}
+               {% endfor %}
+               {% endif %} 
+               <form>
+                  <div class="row">
+                     
+                     <div class="col-12">
+                        <div class="form-group">
+                           <label>Subject</label>
+                           <input type="text" class="form-control" value="{{grievance.subject}}" readonly>
+                        </div>
+                     </div>
+                     
+                     <div class="col-12 ">
+                        <div class="form-group">
+                          <label>Grievance Description</label>
+                          <textarea class="form-control" name="message" style="height: 500px;" readonly>{{grievance.message}}</textarea>
+                        </div>
+                      </div>
+
+        {% if grievance.pic %}
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Grievance image</label>
+
+            <a href="{{grievance.pic.url}}" data-lightbox="grievance-pic">
+              <img src="{{grievance.pic.url}}" alt="Grievance Image" class="img-fluid">
+            </a>
+
+          </div>
+        </div>
+        {% endif %}
+
+
+        
+        {% if grievance.pdf %}
+        <div class="col-12">
+          <div class="form-group">
+            <label>Grievance Pdf</label>
+
+            <a href="{{grievance.pdf.url}}" class="btn btn-outline-primary" target="_blank" >Click to view Pdf</a>
+              
+           
+
+          </div>
+        </div>
+        {% endif %}
+
+      {% if grievance.message_reply %}
+     <div class="col-12 ">
+    <div class="form-group">
+      <label>You have replied to this grievance - {{grievance.message_reply_time}}</label>
+      <textarea class="form-control" name="message_reply" style="height: 300px;" readonly>{{grievance.message_reply}}</textarea>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-primary" disabled>Reply</button>
+  </div>
+{% else %}
+  <div class="col-12">
+    <button type="button" class="btn btn-primary" id="reply-btn" data-toggle="modal" data-target="#replyModal">Reply</button>
+  </div> 
+{% endif %}
+<br><br>
+<div>
+  <form>
+    <label for="to">Forward to:</label><br><br>
+    <select  name="forward_to">
+      
+      <option value="">Select an HOD</option>
+      {% for i in hod %}
+      <option value="">{{i.admin.first_name}} {{i.admin.last_name}} - {{i.department_id.name}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Forward</button>
+  </form>
+  
+</div>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+   <!-- Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="replyModalLabel">Reply to Grievance</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+               <input type="text" class="form-control" name="grv_id" value="{{grievance.id}}" hidden>
+              <label for="replyMessage">Reply Message</label>
+              <textarea name="message_reply" style="height: 300px;" class="form-control" id="replyMessage" rows="3"></textarea>
+            </div>
+          
+          
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="submit" class="btn btn-primary">Submit</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
+
+
+ 
+ 
+
+  {% endblock %}
+
+   
+
+   {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script>
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true
+  })
+</script>
+{% endblock %}

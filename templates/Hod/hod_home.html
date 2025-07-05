@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row">
+          <div class="col-sm-12">
+             <h3 class="page-title">Welcome {{user.first_name}} {{user.last_name}}&nbsp-&nbspHead of the department of {{h.department_id.name}}</h3>
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item active">Dashboard</li>
+             </ul>
+          </div>
+       </div>
+    </div>
+    <div class="row">
+       <div class="col-xl-3 col-sm-6 col-12 d-flex">
+          <div class="card bg-one w-100">
+             <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                   <div class="db-icon">
+                      <i class="fas fa-envelope" style="position: relative; left: -3px;"></i>
+                   </div>
+                   <div class="db-info">
+                      <h4>{{total_grievances}}</h4>
+                      <h6>Total Grievances</h6>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-xl-3 col-sm-6 col-12 d-flex">
+          <div class="card bg-two w-100">
+             <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                   <div class="db-icon">
+                      <i class="fas fa-envelope"></i>
+                   </div>
+                   <div class="db-info">
+                      <h4>{{inprogress_count}}</h4>
+                      <h6>In Progress Grievances</h6>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-xl-3 col-sm-6 col-12 d-flex">
+          <div class="card bg-three w-100">
+             <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                   <div class="db-icon">
+                      <i class="fas fa-envelope" style="position: relative; left: -3px;"></i>
+                   </div>
+                   <div class="db-info">
+                      <h4>{{pending_count}}</h4>
+                      <h6>Pending Grievances</h6>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-xl-3 col-sm-6 col-12 d-flex">
+          <div class="card bg-four w-100">
+             <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                   <div class="db-icon">
+                      <i class="fas fa-envelope" style="position: relative; left: -3px;"></i>
+                   </div>
+                   <div class="db-info">
+                      <h4>{{solved_count}}</h4>
+                      <h6>Solved Grievances</h6>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ <!--  <div class="row">
+       <div class="col-md-12 col-lg-6">
+          <div class="card card-chart">
+             <div class="card-header">
+                <div class="row align-items-center">
+                   <div class="col-6">
+                      <h5 class="card-title">Demo Data</h5>
+                   </div>
+                   <div class="col-6">
+                      <ul class="list-inline-group text-right mb-0 pl-0">
+                         <li class="list-inline-item">
+                            <div class="form-group mb-0 amount-spent-select">
+                               <select class="form-control form-control-sm">
+                                  <option>Today</option>
+                                  <option>Last Week</option>
+                                  <option>Last Month</option>
+                               </select>
+                            </div>
+                         </li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <div class="card-body">
+                <div id="apexcharts-area"></div>
+             </div>
+          </div>
+       </div>
+       <div class="col-md-12 col-lg-6">
+          <div class="card card-chart">
+             <div class="card-header">
+                <div class="row align-items-center">
+                   <div class="col-6">
+                      <h5 class="card-title">Demo Data</h5>
+                   </div>
+                   <div class="col-6">
+                      <ul class="list-inline-group text-right mb-0 pl-0">
+                         <li class="list-inline-item">
+                            <div class="form-group mb-0 amount-spent-select">
+                               <select class="form-control form-control-sm">
+                                  <option>Today</option>
+                                  <option>Last Week</option>
+                                  <option>Last Month</option>
+                               </select>
+                            </div>
+                         </li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <div class="card-body">
+                <div id="bar"></div>
+             </div>
+          </div>
+       </div>
+    </div>  --> 
+    <div class="row">
+       <div class="col-md-6 d-flex">
+          <div class="card flex-fill">
+             <div class="card-header">
+                <h5 class="card-title">Recent Grievances In Progress</h5>
+             </div>
+             <div class="card-body">
+                <div class="table-responsive">
+                   <table class="table table-hover table-center">
+                      <thead class="thead-light">
+                         <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            
+                         </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in inpog_count  %}
+                         <tr>
+                            <td class="text-nowrap">
+                               <div>{{i.employee.admin.employee_id}}</div>
+                            </td>
+                            <td class="text-nowrap">{{i.employee.admin.first_name}} {{i.employee.admin.last_name}}</td>
+                            
+                            <td class="text-nowrap">
+                              <div>In Progress</div>
+                           </td>
+                           
+                         </tr>
+                         {% endfor %}
+                      <!--   <tr>
+                            <td class="text-nowrap">
+                               <div>PRE1245</div>
+                            </td>
+                            <td class="text-nowrap">Jolie Hoskins</td>
+                            <td class="text-center">1195</td>
+                            <td class="text-center">99.5%</td>
+                            <td class="text-right">
+                               <div>2018</div>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td class="text-nowrap">
+                               <div>PRE1625</div>
+                            </td>
+                            <td class="text-nowrap">Pennington Joy</td>
+                            <td class="text-center">1196</td>
+                            <td class="text-center">99.6%</td>
+                            <td class="text-right">
+                               <div>2017</div>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td class="text-nowrap">
+                               <div>PRE2516</div>
+                            </td>
+                            <td class="text-nowrap">Millie Marsden</td>
+                            <td class="text-center">1187</td>
+                            <td class="text-center">98.2%</td>
+                            <td class="text-right">
+                               <div>2016</div>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td class="text-nowrap">
+                               <div>PRE2209</div>
+                            </td>
+                            <td class="text-nowrap">John Smith</td>
+                            <td class="text-center">1185</td>
+                            <td class="text-center">98%</td>
+                            <td class="text-right">
+                               <div>2015</div>
+                            </td>
+                         </tr>  -->
+
+                         
+
+                        
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-md-6 d-flex">
+          <div class="card flex-fill">
+             <div class="card-header">
+                <h5 class="card-title">Recent Pending Grievances</h5>
+             </div>
+             <div class="card-body">
+                <ul class="activity-feed">
+                  {% for i in pend_count %}
+                   <li class="feed-item">
+                      <div class="feed-date">{{i.created_at}}</div>
+                      <span class="feed-text"><a>{{i.employee.admin.first_name}} {{i.employee.admin.last_name}}</a> send a new <a>"Grievance"</a></span>
+                   </li>
+                   {% endfor %}
+             <!--     <li class="feed-item">
+                      <div class="feed-date">Mar 21</div>
+                      <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
+                   </li>
+                   <li class="feed-item">
+                      <div class="feed-date">Feb 2</div>
+                      <span class="feed-text"><a>Justin Lee</a>attended internation conference in <a href="profile.html">"St.John School"</a></span>
+                   </li>
+                   <li class="feed-item">
+                      <div class="feed-date">Apr 13</div>
+                      <span class="feed-text"><a>John Doe</a> won 1st place in <a>"Chess"</a></span>
+                   </li>
+                   <li class="feed-item">
+                      <div class="feed-date">Mar 21</div>
+                      <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
+                   </li>  --> 
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+    
+ </div>
+
+{% endblock %}
